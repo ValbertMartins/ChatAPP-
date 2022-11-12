@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&family=Rubik:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,500&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Rubik",sans-serif;
+   
+}
+
+
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(231,231,231,255);
+}
+
+.chatApp-container {
+    width: 350px;
+    background-color: white ;
+    height: 650px;
+    max-height: 650px;
+    padding: 1%;
+    border-radius: 20px;
+    box-shadow:  20px 20px 60px #a1a1a1,
+             -20px -20px 60px #ffffff;
+    
+}
+
+
+.menu-chat-container {
+   
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    padding: 2%;
+    align-items: center;
+
+}
+
+
+
+.messages-display-container {
+    height: 85%;
+    max-height: 85%;
+    padding: 5% 2%;
+    font-size: 0.9rem;
+    position: relative;
+    overflow-y: scroll;
+   
+   
+}
+
+
+.inputMessage-container {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    height: 40px;
+    display: flex;
+    border-radius: 10px;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+.inputMessage-container input, button {
+    outline: none;
+    border: none;
+    height: 100%;
+}
+
+#inputMessage {
+    width: 70%;
+}
+
+
+#sendMessageBtn { 
+    width: 10%;
+    cursor: pointer;
+    background-color: white;
+}
+
+.receivedMessage-container {
+    display: flex;
+    justify-content: start;
+    margin: 1rem 0rem;
+    cursor: pointer;
+}
+
+.messageSubmited-container {
+    display: flex;
+    justify-content: end;
+    margin: 1rem 0rem;
+    cursor: pointer;
+   
+}
+
+.receivedMessage {
+    max-width: 80%;
+    overflow-wrap: break-word;
+    background-color: rgba(245,248,254,1);
+    border-radius: 1rem;
+    border-top-left-radius: 0rem;
+    padding: 4%;
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+.receivedMessage img {
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    margin-right: 0.5rem;
+   
+}
+
+
+
+.messageSubmited {
+    max-width: 55%;
+    overflow-wrap: break-word;
+    background-color: #d8e5ff;
+    border-radius: 1rem;
+    border-bottom-right-radius: 0rem;
+    padding: 4%;
+    
+}
+
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.btnLogout {
+    outline: none;
+    border: none;
+    font-size: 1.3rem;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: 800ms;
+    background: #ffffff;
+    box-shadow:  9px 9px 17px #d9d9d9,
+             -9px -9px 17px #ffffff;
+    
+}
+
+.btnLogout:hover {
+    background-color: #d8e5ff;
+
+}
+
