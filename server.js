@@ -27,7 +27,7 @@ app.use('/login' , require('./routes/login'))
 app.use('/profile', require('./routes/profile'))
 app.use('/storeAvatar', require('./routes/storeAvatar'))
 app.use("/loadMessages", require('./routes/loadMessages'))
-app.use('/findUser', require("./routes/findUser"))
+
 
 
 

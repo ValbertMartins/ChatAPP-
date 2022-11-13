@@ -2,25 +2,24 @@ const socket = io();
 const sendMessageBtn = document.querySelector("#sendMessageBtn")
 const inputMessage = document.querySelector('#inputMessage')
 const messagesDisplayEl = document.querySelector(".messages-display-container")
+const chatAppContainer = document.querySelector(".chatApp-container")
 
 
 const fetchMessages = async () => {
-
-    try {
-        const response = await fetch("http://localhost:4000/loadMessages")
-        const data = await response.json()
-        return data
+    const accessToken = localStorage.getItem("accessToken")
+    const response = await fetch("http://localhost:4000/loadMessages", {
+        headers: { authorization: `Bearer ${accessToken}`}
+    })
+    const data = await response.json()
+    return data
        
-    }catch(error){
-        console.log(error)
-    }
+  
 }
 
 
 
 const fetchUser = async () => {
     const accessToken = localStorage.getItem("accessToken")
-    
     try {
         const response = await fetch("http://localhost:4000/profile", {
             headers: {
@@ -32,7 +31,8 @@ const fetchUser = async () => {
         return userInfo
 
     }catch(error){
-        console.log(error)
+         console.log(error)
+        
     }
 }
 
@@ -41,7 +41,7 @@ const createMessageStyle = data => {
     return `
         <div class="receivedMessage-container">
             <div class="receivedMessage">
-                <img src="${data.profilePicture}"  alt="">
+                <img src="http://localhost:4000/uploads/${data.profilePicture}"  alt="">
 
                 <div>
                     <h4>${data.name}</h4>
@@ -58,11 +58,12 @@ const createMessageStyle = data => {
 
 const sendMessage = async () => {
     const { name ,profilePicture } = await fetchUser()
+   
     const data = { 
         message: inputMessage.value,
         name,
         profilePicture
-        
+
     }
     socket.emit("message", data)
     inputMessage.value = ''
@@ -70,23 +71,25 @@ const sendMessage = async () => {
     messagesDisplayEl.scrollTop = messagesDisplayEl.scrollHeight;
 }
 
-// window.setTimeout(() => {
-        
-    
-        
-// }, 100);
+
 const renderOldMessages = async () => {
-    const listMessages = await fetchMessages()
-    
-    listMessages.forEach( data => {
-        messagesDisplayEl.insertAdjacentHTML("beforeend", createMessageStyle(data))
-        messagesDisplayEl.scrollTop = messagesDisplayEl.scrollHeight;
-    }) 
+
+    try {
+
+        const listMessages = await fetchMessages()
+        
+        listMessages.forEach( data => {
+            messagesDisplayEl.insertAdjacentHTML("beforeend", createMessageStyle(data))
+            messagesDisplayEl.scrollTop = messagesDisplayEl.scrollHeight;
+        }) 
+
+    }catch(error){
+        return chatAppContainer.innerHTML = "<img class='loadingImg' src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif' >"
+    }
 }
 
-
+//init
 const init = () => {
-    fetchUser()
     renderOldMessages()
 
     socket.on("receiveMessage", data => {
@@ -94,8 +97,6 @@ const init = () => {
         
     
     })
-
-
     inputMessage.addEventListener("keypress" , (event) => {
 
         if(event.key == "Enter" && inputMessage.value.length !== 0) sendMessage()
@@ -118,12 +119,10 @@ btnLogout.addEventListener('click', () => {
 
 const testUserExists = () => {
     const accessToken = localStorage.getItem("accessToken")
-    const chatAppContainer = document.querySelector(".chatApp-container")
     if(!accessToken){
-        return chatAppContainer.innerHTML = ""
+        return chatAppContainer.innerHTML = "<img class='loadingImg' src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif' >"
     }
     init()
 }
-
 
 testUserExists()

@@ -3,7 +3,7 @@ require('dotenv').config()
 
 
 const verifyJWT = async (req,res,next) => {
-
+    
     const authHeader = req.headers.authorization.split(" ")[1]
     if(!authHeader) return res.status(403).json({"message":"invalid token"})
     
@@ -17,6 +17,7 @@ const verifyJWT = async (req,res,next) => {
         console.log(error)
         res.status(403).json({"message": "inauthorized"})
     }
+    
 
 }
 

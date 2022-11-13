@@ -10,6 +10,7 @@
 
 
 
+
 body {
     display: flex;
     justify-content: center;
@@ -18,11 +19,17 @@ body {
     background-color: rgba(231,231,231,255);
 }
 
+a {
+    color: black;
+    
+}
+
 .chatApp-container {
     width: 350px;
     background-color: white ;
     height: 650px;
     max-height: 650px;
+    position: relative;
     padding: 1%;
     border-radius: 20px;
     box-shadow:  20px 20px 60px #a1a1a1,
@@ -39,6 +46,7 @@ body {
     height: 50px;
     padding: 2%;
     align-items: center;
+    
 
 }
 
@@ -63,6 +71,9 @@ body {
     border-radius: 10px;
     justify-content: space-around;
     align-items: center;
+    box-shadow:  10px 10px 20px #d9d9d9,
+    -10px -10px 20px #e7e7e7;
+    
     
 }
 
@@ -107,17 +118,20 @@ body {
     padding: 4%;
     display: flex;
     justify-content: space-between;
+    box-shadow:  10px 15px 25px -3px #7b7b7b,
+    -10px -10px 29px #ffffff;
    
 }
 
 .receivedMessage img {
-    min-width: 40px;
+    
     width: 40px;
     height: 40px;
     border-radius: 20px;
-    margin-right: 0.5rem;
-   
+    margin-right: 0.5rem;   
 }
+
+
 
 
 
@@ -136,7 +150,7 @@ body {
     display: none;
 }
 
-.btnLogout {
+.btnLogout,.btnConfig {
     outline: none;
     border: none;
     font-size: 1.3rem;
@@ -156,3 +170,10 @@ body {
 
 }
 
+
+
+.loadingImg {
+    width: 100%;
+    margin-top: 12rem;
+    
+}

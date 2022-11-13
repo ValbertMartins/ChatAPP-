@@ -1,86 +1,66 @@
+const preview = document.querySelector('#preview')
+const inputFile = document.querySelector("input[type=file]")
+const btnSave = document.querySelector("#saveBtn")
+const accessToken = localStorage.getItem('accessToken')
 
-const accessToken = localStorage.getItem("accessToken")
+inputFile.addEventListener('change',() => {
+    const reader = new FileReader()
+    reader.addEventListener('load', () => {
+        preview.style.backgroundImage = `url(${reader.result})`
+        
+    })
+    reader.readAsDataURL(inputFile.files[0])
+    
+} )
 
-
-const fetchUsers = async () => {
-
+const submitImg = async () => {
+    
+    const formData = new FormData()
+    formData.append('avatar', inputFile.files[0])
     try {
-        const usersList = await fetch("http://localhost:4000/profile", {
-            headers: {"content-type":"application/json", "authorization": `Bearer ${accessToken}`}
+        const response = await fetch("http://localhost:4000/storeAvatar", {
+            headers: {
+                authorization: `Bearer ${accessToken}`
+            },
+            method:"POST",  
+             
+            body: formData
         })
-
-        const data = await usersList.json()
-        return data 
+        const avatar = await response.json()
+        console.log(avatar)
+        preview.style.backgroundImage = `http://localhost:4000/uploads/${avatar}`
     }catch(error){
         console.log(error)
     }
-    
 }
 
-
-const createUserEL = (username,profilePicture) => {
-    return `<a href="./chat.html?${username}"><article class="message-container" alt= ${username} >
-            <div class="profile-container">
-                <div class="picture-container">
-                    <img src="${profilePicture}"  alt="">
-                </div>
-                <div class="last-message-container">
-                    <span class="usernameDisplay">${username}</span>
-                    
-                    <p class="last-message">last message</p>
-                    
-                </div>
-            </div>
-
-            <div class="date-container">
-
-            </div>
-            
-        </article>
-    </a>`
-    
-}
+btnSave.addEventListener('click', () => {
+    submitImg()
+})
 
 
+const fetchUser = async () => {
+    const accessToken = localStorage.getItem("accessToken")
+    try {
 
-const renderUsers = async () => {
-    const usersList = await fetchUsers()
-    const chatAppEL = document.querySelector(".chatApp-container")
-    usersList.forEach( user => {
-        chatAppEL.insertAdjacentHTML('beforeend', createUserEL(user.name,user.profilePicture))
-        
-    });
-    redirectUserToChat()
-    
-}
-
-const redirectUserToChat = () => {
-    const messageContainerEL = document.querySelectorAll(".message-container")
-    
-    messageContainerEL.forEach( messageContainer => {
-        
-        messageContainer.addEventListener('click', (event) => {
-            const userName = messageContainer.attributes[1].value
-            
-            //window.location.href = `http://localhost:4000/chat.html`
+        const response = await fetch('http://localhost:4000/profile', {
+            headers: {authorization: `Bearer ${accessToken}`}
         })
-    })
+        const user = await response.json()
+        return user
+    }catch(error){
+        console.log(error)
+    }
+}
+
+const showInfoUser = async () => {
+    const user = await fetchUser()
+    preview.style.backgroundImage = `url(http://localhost:4000/uploads/${user.profilePicture})`
 }
 
 const init = () => {
-    renderUsers()
+    showInfoUser()
     
 }
 
 init()
-
-
-const btnLogout = document.querySelector('.btnLogout')
-btnLogout.addEventListener('click', () => {
-    localStorage.removeItem("accessToken")
-    window.location.href = "../auth/login.html"
-})
-
-
-
-

@@ -3,22 +3,7 @@ const username = document.querySelector("input[name=name]")
 const password = document.querySelector("input[name=password]") 
 const messageDisplay = document.querySelector(".api-response")
 
-const submitImg = async (name) => {
-    const inputFiles = document.querySelector("input[type=file]").files[0]
-    const formData = new FormData()
-    formData.append('avatar', inputFiles)
-    try {
-        await fetch("/storeAvatar", {
-            method:"POST",  
-            headers: {
-                "name": name
-            },  
-            body: formData
-        })
-    }catch(error){
-        console.log(error)
-    }
-}
+
 
 const submitForm = async (name,password) => {
      
@@ -34,7 +19,7 @@ const submitForm = async (name,password) => {
         if(!accessToken) {
             return messageDisplay.innerHTML = `<span>${message}</span>`
         }
-        submitImg(user)
+        
         localStorage.setItem("accessToken", accessToken)
 
 
