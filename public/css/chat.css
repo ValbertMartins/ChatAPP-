@@ -116,15 +116,16 @@ a {
     border-radius: 1rem;
     border-top-left-radius: 0rem;
     padding: 4%;
+    word-break: break-all;
     display: flex;
     justify-content: space-between;
-    box-shadow:  10px 15px 25px -3px #7b7b7b,
+    box-shadow:  7px 7px 8px -3px #edecec,
     -10px -10px 29px #ffffff;
    
 }
 
 .receivedMessage img {
-    
+    min-width: 40px;
     width: 40px;
     height: 40px;
     border-radius: 20px;
@@ -158,14 +159,14 @@ a {
     height: 40px;
     cursor: pointer;
     border-radius: 20px;
-    transition: 800ms;
+    transition: 500ms;
     background: #ffffff;
-    box-shadow:  9px 9px 17px #d9d9d9,
+    box-shadow:  5px 3px 17px #d9d9d9,
              -9px -9px 17px #ffffff;
     
 }
 
-.btnLogout:hover {
+.btnLogout:hover, .btnConfig:hover {
     background-color: #d8e5ff;
 
 }
@@ -177,3 +178,4 @@ a {
     margin-top: 12rem;
     
 }
+

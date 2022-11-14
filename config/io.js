@@ -8,13 +8,20 @@ const runIo = (server) => {
       
     
       socket.on("message", async data => {
+        console.log(data)
+        try {
 
+          const user = await User.findOne({name:data.name}).select('-password')
+  
+            data.access = true
+            await Message.create({ name:data.name , message:data.message , profilePicture:user.profilePicture})
+            socket.broadcast.emit("receiveMessage" , data)
 
-        const { profilePicture } = await User.findOne({name:data.name}).select('-password')
-
-        await Message.create({ name:data.name , message:data.message , profilePicture})
-
-        socket.broadcast.emit("receiveMessage" , data)
+          
+            
+        }catch(error){
+          console.log("error handling")
+        }
       })
     
       

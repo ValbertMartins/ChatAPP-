@@ -2,7 +2,7 @@ const preview = document.querySelector('#preview')
 const inputFile = document.querySelector("input[type=file]")
 const btnSave = document.querySelector("#saveBtn")
 const accessToken = localStorage.getItem('accessToken')
-
+const btnBack = document.querySelector('.btnBack')
 inputFile.addEventListener('change',() => {
     const reader = new FileReader()
     reader.addEventListener('load', () => {
@@ -12,6 +12,11 @@ inputFile.addEventListener('change',() => {
     reader.readAsDataURL(inputFile.files[0])
     
 } )
+btnBack.addEventListener('click', (event) => {
+    event.preventDefault()
+    window.location.href = "./chat.html"
+})
+
 
 const submitImg = async () => {
     
@@ -54,9 +59,13 @@ const fetchUser = async () => {
 }
 
 const showInfoUser = async () => {
+    const userNameEl = document.querySelector("#userNameEl")
     const user = await fetchUser()
     preview.style.backgroundImage = `url(http://localhost:4000/uploads/${user.profilePicture})`
+    userNameEl.innerText = user.name
 }
+
+
 
 const init = () => {
     showInfoUser()

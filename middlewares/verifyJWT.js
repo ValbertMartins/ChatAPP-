@@ -14,7 +14,6 @@ const verifyJWT = async (req,res,next) => {
         req.userId = authorizated.userId 
         next()
     }catch(error){
-        console.log(error)
         res.status(403).json({"message": "inauthorized"})
     }
     

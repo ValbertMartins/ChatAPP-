@@ -48,11 +48,15 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 2rem 0rem;
+    
 }
 
 .profile-container {
     width: 50%;
     position: relative;
+   
+
 }
 
 input[type=file] {
@@ -65,7 +69,7 @@ input[type=file] {
     height: 150px;
     width: 150px;
     border-radius: 50%;
-
+    margin: 0 auto;
     box-shadow:  10px 10px 20px #b1b1b1,
     -10px -10px 20px #ffffff;
 }
@@ -74,6 +78,7 @@ input[type=file] {
     position: absolute;
     right: 0.7rem;
     bottom: 0.3rem;
+    transition: 500ms;
     width: 35px;
     height: 35px;
     display: flex;
@@ -83,5 +88,46 @@ input[type=file] {
     cursor: pointer;
     background: #e0e0e0;
     box-shadow:  5px 5px 10px #5a5a5a,
-             -1px -1px 10px #ffffff;    
+             -1px -1px 10px #fffbfb;    
+    
+}
+
+#changeImgLabel:hover {
+    background-color: #d8e5ff;
+}
+
+
+#saveBtn {
+    border: none;
+    outline: none;
+    height: 40px;
+    width: 50%;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 500ms;
+    background: #ffffff;
+    box-shadow:  5px 5px 9px #bfb6b6,
+                 -5px -5px 9px #ffffff;
+}
+
+#saveBtn:hover, .btnBack:hover {
+    background-color: #d8e5ff;
+}
+#userNameEl {
+    margin: 2rem 0rem;
+}
+
+
+.btnBack {
+    outline: none;
+    border: none;
+    font-size: 1.3rem;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: 500ms;
+    background: #ffffff;
+    box-shadow:  5px 5px 9px #bfb6b6,
+                 -5px -5px 9px #ffffff;
 }

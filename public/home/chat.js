@@ -4,6 +4,16 @@ const inputMessage = document.querySelector('#inputMessage')
 const messagesDisplayEl = document.querySelector(".messages-display-container")
 const chatAppContainer = document.querySelector(".chatApp-container")
 
+const verifyJWT = async () => {
+     const accessToken = localStorage.getItem('accessToken')
+     if(!accessToken){
+         return chatAppContainer.innerHTML = "<img class='loadingImg' src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif' >"
+     }
+
+     
+
+ }
+
 
 const fetchMessages = async () => {
     const accessToken = localStorage.getItem("accessToken")
@@ -57,18 +67,28 @@ const createMessageStyle = data => {
 
 
 const sendMessage = async () => {
-    const { name ,profilePicture } = await fetchUser()
-   
-    const data = { 
-        message: inputMessage.value,
-        name,
-        profilePicture
+    try {
 
+        const { name ,profilePicture } = await fetchUser()
+       
+        if(!name){
+            return chatAppContainer.innerHTML = "<img class='loadingImg' src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif' >"
+        }
+        
+        const data = { 
+            message: inputMessage.value,
+            name,
+            profilePicture
+    
+        }
+        socket.emit("message", data)
+        inputMessage.value = ''
+        messagesDisplayEl.insertAdjacentHTML("beforeend", createMessageStyle(data))
+        messagesDisplayEl.scrollTop = messagesDisplayEl.scrollHeight;
+    }catch(error){
+        console.log(error)
+        return chatAppContainer.innerHTML = "<img class='loadingImg' src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif' >"
     }
-    socket.emit("message", data)
-    inputMessage.value = ''
-    messagesDisplayEl.insertAdjacentHTML("beforeend", createMessageStyle(data))
-    messagesDisplayEl.scrollTop = messagesDisplayEl.scrollHeight;
 }
 
 
@@ -93,6 +113,11 @@ const init = () => {
     renderOldMessages()
 
     socket.on("receiveMessage", data => {
+
+        console.log(data)
+        if(!data.access) {
+            return chatAppContainer.innerHTML = "<img class='loadingImg' src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif' >"
+        }
         messagesDisplayEl.insertAdjacentHTML("beforeend", createMessageStyle(data))
         
     
@@ -115,14 +140,14 @@ btnLogout.addEventListener('click', () => {
     window.location.href = "../auth/login.html"
 })
 
-
-
 const testUserExists = () => {
-    const accessToken = localStorage.getItem("accessToken")
+    const accessToken = localStorage.getItem('accessToken')
     if(!accessToken){
         return chatAppContainer.innerHTML = "<img class='loadingImg' src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif' >"
     }
     init()
+    
+    //init()
 }
 
 testUserExists()
