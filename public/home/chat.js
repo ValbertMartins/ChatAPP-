@@ -43,10 +43,11 @@ const fetchUser = async () => {
 
 //render message
 const createMessageStyle = data => {
+
     return `
         <div class="receivedMessage-container">
             <div class="receivedMessage">
-                <img src="http://localhost:4000/uploads/${data.profilePicture}"  alt="">
+                <div class="img" style="background-image: url(http://localhost:4000/uploads/${data.profilePicture}"></div>
 
                 <div>
                     <h4>${data.name}</h4>
