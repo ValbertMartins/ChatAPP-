@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema({
     },
     profilePicture: {
         type: String,
-        default: "https://media.tenor.com/a5a4uCOYfygAAAAC/profile-picture-rock.gif"
+        default: "default.jpg"
     }
 })
 

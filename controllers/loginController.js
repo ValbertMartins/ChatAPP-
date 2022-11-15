@@ -18,7 +18,7 @@ const loginController = async (req,res) => {
             return res.status(401).json({"message": "user or password doesn't exists"})
         }
 
-        const accessToken = jwt.sign({ userId: user._id}, process.env.SECRET ,{ expiresIn: '10s'})
+        const accessToken = jwt.sign({ userId: user._id}, process.env.SECRET ,{ expiresIn: '1d'})
 
 
         res.status(201).json({"message":"loggin successful", user :user.name, accessToken})

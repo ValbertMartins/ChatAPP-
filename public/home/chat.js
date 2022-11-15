@@ -4,15 +4,7 @@ const inputMessage = document.querySelector('#inputMessage')
 const messagesDisplayEl = document.querySelector(".messages-display-container")
 const chatAppContainer = document.querySelector(".chatApp-container")
 
-const verifyJWT = async () => {
-     const accessToken = localStorage.getItem('accessToken')
-     if(!accessToken){
-         return chatAppContainer.innerHTML = "<img class='loadingImg' src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif' >"
-     }
 
-     
-
- }
 
 
 const fetchMessages = async () => {
@@ -38,6 +30,9 @@ const fetchUser = async () => {
             },
         })
         const userInfo = await response.json()
+        if(!userInfo.name){
+            return window.location.href = "../auth/login.html"
+        }
         return userInfo
 
     }catch(error){
@@ -70,10 +65,6 @@ const sendMessage = async () => {
     try {
 
         const { name ,profilePicture } = await fetchUser()
-       
-        if(!name){
-            return chatAppContainer.innerHTML = "<img class='loadingImg' src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif' >"
-        }
         
         const data = { 
             message: inputMessage.value,
@@ -87,7 +78,6 @@ const sendMessage = async () => {
         messagesDisplayEl.scrollTop = messagesDisplayEl.scrollHeight;
     }catch(error){
         console.log(error)
-        return chatAppContainer.innerHTML = "<img class='loadingImg' src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif' >"
     }
 }
 
